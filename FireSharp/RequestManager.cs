@@ -14,6 +14,8 @@ namespace FireSharp
         private readonly IFirebaseConfig _config;
         private readonly HttpClient _httpClient;
 
+        public string IdToken { get; set; } = null;
+
         internal RequestManager(IFirebaseConfig config)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
@@ -125,8 +127,11 @@ namespace FireSharp
 
         private Uri PrepareUri(string path, QueryBuilder queryBuilder)
         {
-            var authToken = !string.IsNullOrWhiteSpace(_config.AuthSecret)
-                ? $"{path}.json?auth={_config.AuthSecret}"
+            string token = _config.AuthSecret;
+            if (!string.IsNullOrWhiteSpace(IdToken))
+                token = IdToken;
+            var authToken = !string.IsNullOrWhiteSpace(token)
+                ? $"{path}.json?auth={token}"
                 : $"{path}.json?";
 
             var queryStr = string.Empty;

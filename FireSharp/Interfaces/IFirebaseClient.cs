@@ -7,6 +7,8 @@ namespace FireSharp.Interfaces
 {
     public interface IFirebaseClient: IDisposable
     {
+        string IdToken { get; set; }
+
         Task<FirebaseResponse> GetAsync(string path);
         Task<FirebaseResponse> GetAsync(string path, QueryBuilder queryBuilder);
 

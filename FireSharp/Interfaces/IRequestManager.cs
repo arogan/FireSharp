@@ -6,6 +6,8 @@ namespace FireSharp.Interfaces
 {
     internal interface IRequestManager : IDisposable
     {
+        string IdToken { get; set; }
+
         Task<HttpResponseMessage> ListenAsync(string path);
         Task<HttpResponseMessage> ListenAsync(string path, QueryBuilder queryBuilder);
         Task<HttpResponseMessage> RequestAsync(HttpMethod method, string path, object payload = null);

@@ -11,6 +11,19 @@ namespace FireSharp
 {
     public class FirebaseClient : IFirebaseClient
     {
+        private string idToken = null;
+        public string IdToken
+        {
+            get { return idToken; }
+            set
+            {
+                idToken = value;
+                if (_requestManager != null)
+                    _requestManager.IdToken = value;
+            }
+        }
+            
+
         private readonly Action<HttpStatusCode, string> _defaultErrorHandler = (statusCode, body) =>
         {
             if (statusCode < HttpStatusCode.OK || statusCode >= HttpStatusCode.BadRequest)
